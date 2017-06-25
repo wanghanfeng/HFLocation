@@ -56,7 +56,9 @@
     if (locations) {
         CLLocation *location = [locations firstObject];
         CLGeocoder *geocoder = [[CLGeocoder alloc] init];
+        __weak typeof(self) weak_self = self;
         [geocoder reverseGeocodeLocation:location completionHandler:^(NSArray<CLPlacemark *> * _Nullable placemarks, NSError * _Nullable error) {
+            __strong typeof(weak_self) self = weak_self;
             if (error) {
                 NSLog(@"%@",error);
                 if (self.block) {
